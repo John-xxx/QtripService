@@ -33,4 +33,10 @@
     <!--开启事物注解 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
+    <!-- 配置server -->
+    <bean id="loginService" class="cn.tences.qtripservice.database.service.UserService"/>
+    <!-- 配置dao -->
+    <bean id="userDaoImpl" class="cn.tences.qtripservice.database.impl.UserDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
 </beans>

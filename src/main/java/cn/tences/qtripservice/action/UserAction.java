@@ -1,25 +1,42 @@
 package cn.tences.qtripservice.action;
 
-import cn.tences.qtripservice.bean.FestFulBean;
+import cn.tences.qtripservice.bean.RestFulBean;
+import cn.tences.qtripservice.bean.UserBean;
+import cn.tences.qtripservice.database.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user")
 public class UserAction {
+    @Autowired
+    private UserService userService;
 
+
+    /**
+     * 注册
+     *
+     * @param userBean
+     * @return
+     */
     @ResponseBody
-    @RequestMapping(value="/loginByPwd.do", method= RequestMethod.GET)
-    public FestFulBean<String> loginByPwd(@RequestParam String username, @RequestParam String password)
-    {
-        FestFulBean<String> restful = new FestFulBean<String>();
-        restful.setData("hello, " + username + " welcom to my website!");
-        restful.setStatus(0);
-        restful.setMsg("成功");
-        return restful;
+    @RequestMapping(value = "/register.do", method = RequestMethod.PUT)
+    public RestFulBean<UserBean> register(@RequestBody UserBean userBean) {
+        return userService.registorServer(userBean);
+    }
+
+    /**
+     * 登录
+     *
+     * @param phone
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/loginbypwd.do", method = RequestMethod.POST)
+    public RestFulBean<UserBean> loginByPwd(String phone, String password) {
+        System.out.println("phone:" + phone);
+        return userService.login(phone, password);
     }
 
 }
