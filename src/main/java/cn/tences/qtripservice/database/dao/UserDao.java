@@ -16,7 +16,7 @@ public interface UserDao {
     UserBean login(String phone, String password);
 
     /**
-     * 根据名字获取用户信息
+     * 根据电话号码获取用户信息
      * @param phone
      * @return
      */
